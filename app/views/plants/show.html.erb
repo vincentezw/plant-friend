@@ -1,0 +1,140 @@
+<section class="container-sm content my-4 shadow p-4">
+  <div class="pb-2 mt-2 mb-2 border-bottom border-plantfriend">
+    <h2><%= @plant.name %></h2>
+  </div>
+  <p><%= @plant.family.name %><% if @plant.family.latin_name %><em> (<%= @plant.family.latin_name %>)</em><% end %></p>
+
+  <div class="row">
+    <div class="col">
+      <p><%= icon('thermometer-half') %> Health: <%= @plant.health %></p>
+    </div>
+    <div class="col">
+      <p><%= icon('door-open') %> Room: <%= @plant.room.name %></p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <p><%= icon('plus-slash-minus') %> Fertilise: <%= @plant.fertilise ? "Yes" : "No" %></p>
+    </div>
+    <div class="col">
+      <p><%= icon('snow') %> Fertilise in winter: <%= @plant.fertilise_in_winter ? "Yes" : "No" %></p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <p><%= icon('stopwatch') %> Watering frequency: every <%= @plant.watering_frequency %> days</p>
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 plant-next-due justify-content-between">
+    <% @next_due.each do |n| %>
+      <div class="col d-flex">
+        <div>
+          <% case n[0].to_s %>
+          <% when 'water' %>
+            <%= icon('droplet-fill') %>
+          <% when 'misting' %>
+            <%= icon('moisture') %>
+          <% else %>
+            <%= icon('bucket-fill') %>
+          <% end %>
+        </div>
+        <div>
+          <%= n[1].capitalize %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @pictures.any? %>
+    <div class="d-flex d-justify-content-center">
+      <% 5.times do |i| %>
+        <div class='thumbnail border-plantfriend<% if @pictures[i] %> thumbnail--active<% end%>'>
+          <% if @pictures[i] %>
+            <a href="<%= picture_path(@pictures[i]) %>">
+              <%= image_tag @pictures[i].image_derivatives[:thumb].url %>
+            </a>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @number_of_pictures > 5 %>
+    <% button_text = "See all #{@number_of_pictures} pictures" %>
+    <%= button_to button_text, {
+      controller: 'plants',
+      action: :pictures },
+      { class: "btn btn-primary my-3", method: :get}
+    %>
+  <% end %>
+
+  <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#addPicture">
+    <%= icon('image') %> Add a picture
+  </button>
+
+  <div class="row">
+    <div class="col">
+      <% if @tasks.any? %>
+        <p>Last <%= @tasks.count %> completed tasks:</p>
+        <% @tasks.each do |t| %>
+          <span class="badge bg-info mb-3 p-2">
+            <%= icon_for_task(t.task_name) %> <%= t.past_tense %> on <%= t.created_at.strftime("%d %B") %>
+          </span>
+        <% end %>
+        <p><%= link_to "See all tasks", :controller => :plants, :action => :tasks%></p>
+      <% else %>
+        <p>No tasks completed yet for this plant.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= link_to plants_path, class: "btn btn-secondary mt-3 me-2" do %>
+        <%= icon('arrow-left') %> Back
+      <% end %>
+      <%= link_to edit_plant_path(@plant), class: "btn btn-primary mt-3 me-2" do %>
+        <%= icon('pencil') %> Edit
+      <% end %>
+      <%= link_to plant_path(@plant), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger mt-3" do %>
+        <%= icon('trash') %> Delete
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="addPicture" tabindex="-1" aria-labelledby="addPictureLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <%= form_for @picture do |form| %>
+          <%= form.hidden_field :plant_id, value: @plant.id %>
+          <div class="modal-header">
+            <h5 class="modal-title" id="addPictureLabel">Add picture</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <%= form.label :image %>
+              <%= form.file_field :image %>
+            </div>
+            <div class="form-group">
+              <%= form.label :description %>
+              <%= form.text_area :description, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              <%= icon('x-lg') %> Cancel
+            </button>
+            <%= form.button :class => 'btn btn-primary' do %>
+              <%= icon('plus-lg') %> Add picture
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

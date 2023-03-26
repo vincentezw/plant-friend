@@ -1,0 +1,11 @@
+name,watering_frequency,latin_name,preferred_room,misting,cleaning
+Spider Plant,17,Chlorophytum comosum,partsun,TRUE,FALSE
+Spineless Yucca,20,Yucca gigantea,sun,FALSE,FALSE
+Asparagus Fern,7,Asparagus plumosus,partsun,FALSE,FALSE
+Calamondin,10,Citrus x microcarpa,sun,FALSE,TRUE
+Snake Plant,25,Dracaena trifasciata,partsun,FALSE,FALSE
+Peace Lilly,14,Spathiphyllum wallisii,partsun,TRUE,TRUE
+Japanese Aralia,10,Aralia Japonica,partsun,TRUE,FALSE
+Cylinder Snake Plant,25,Dracaena angolensis,sun,TRUE,TRUE
+Tradescantia,10,Tradescantia fluminensis,partsun,TRUE,FALSE
+Red Nerve Plant,8,Fittonia albivenis,partsun,TRUE,FALSE

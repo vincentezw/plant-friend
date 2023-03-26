@@ -1,0 +1,55 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-secondary me-2" data-bs-toggle="modal" data-bs-target="#taskModal-<%= index %>">
+  <%= icon('clock-history') %> Snooze
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="taskModal-<%= index %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="taskModalLabel-<%= index %>">Snooze or skip</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="border-bottom border-plantfriend text-center">
+          <%= form_for @task do |form| %>
+            <% skipaction = "skip#{task.task_type.serialize.downcase}" %>
+            <%= form.hidden_field :task_name, value: skipaction %>
+            <%= form.hidden_field :plant_id, value: task.plant.id %>
+            <%= form.button nil, class: "btn btn-primary mb-1" do %>
+              <%= icon('skip-forward') %> Skip this time
+            <% end %>
+
+            <% if task.task_type == ::Task::TaskActionType::Water ||
+              task.task_type == ::Task::TaskActionType::Fertilise %>
+              <p>(next regular watering due in <%= task.plant.watering_frequency %> days)</p>
+            <% end %>
+            <p> or...</p>
+          <% end %>
+        </div>
+        <div class="text-center">
+          <% unless task.last_task.nil? %>
+            <%= form_with model: task.last_task do |form| %>
+              <%= form.button nil, class: "btn btn-primary mt-3 mb-1" do %>
+                <%= icon('clock-history') %> Snooze
+              <% end %>
+              <p>for</p>
+              <% if task.plant.snooze_options(task.task_type).length == 1 %>
+                <%= form.hidden_field :snooze_time, value: 1 %>
+                <p>1 day</p>
+              <% else %>
+                <%= form.select :snooze_time, task.plant.snooze_options(task.task_type),
+                {}, { :class => 'form-select' } %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

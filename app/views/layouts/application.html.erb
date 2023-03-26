@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Plant friend</title>
+    <%= favicon_link_tag asset_path('favicon.png') %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application.bootstrap", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  </head>
+
+  <body>
+    <main>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand" href="/"><%= image_tag("logo.png", size: "94x45", alt: "Plant friend") %></a>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link<% if current_page?('/') %> active<% end %>" aria-current="page" href="/">Tasks</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link<% if current_page?(plants_path) %> active<% end %>" href="/plants">Plants</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link<% if current_page?(rooms_path) %> active<% end %>" href="/rooms">Rooms</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link<% if current_page?(families_path) %> active<% end %>" href="/families">Families</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="d-flex flex-column justify-content-start col">
+        <%= yield %>
+      </div>
+    </main>
+  </body>
+</html>

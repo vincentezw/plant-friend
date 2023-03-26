@@ -1,0 +1,40 @@
+<section class="container-md col content my-4 shadow p-4">
+  <div class="pb-2 mt-2 mb-2 border-bottom border-plantfriend">
+    <h2><%= @room.name %></h2>
+  </div>
+  <p>Plants added to this room.</p>
+  <% if @plants.nil? %>
+    <div class="text-center">
+      <p>Add some plants to this room from the <a href="/plants">plants page</a>.</p>
+      <%= image_tag("content-plant.png", size: "200x162", alt: "A content plant", class: 'my-5') %>
+      <p style='font-size: 0.6em;'>Image by <a href="https://www.vecteezy.com/members/divinetoons" target="_blank">divinetoons</a></p>
+    </div>
+  <% else %>
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4">
+        <% @plants.each do |plant| %>
+          <div class="col">
+            <div class="card mb-1">
+              <% if plant.pictures.any? %>
+                <%= image_tag plant.pictures.last.image_derivatives[:thumb].url, class: 'card-img-top', alt: plant.pictures.last.description %>
+              <% else %>
+                <%= image_tag("happy-plant.png", size: "500x500", alt: "A happy plant", class: 'card-img-top') %>
+              <% end %>
+
+              <div class="card-body">
+                <h5 class="card-title"><%= plant.name %></h5>
+                <h6 class="card-subtitle mb-2 text-muted"><%= plant.family.name %></h6>
+                <%= link_to "See more", plant_path(plant), class: "btn btn-primary" %>
+              </div>
+
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to rooms_path, class: "btn btn-secondary mt-4" do %>
+    <%= icon('arrow-left') %>
+    Back to rooms
+  <% end %>
+</section>

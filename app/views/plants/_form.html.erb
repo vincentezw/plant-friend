@@ -1,0 +1,70 @@
+<%= form_with model: plant do |form| %>
+  <div class="form-group">
+    <%= form.label :family_id %><br>
+    <%= form.select(:family_id, Family.all.collect {|a| [a.name, a.id]}, {}, { :class => 'form-select' }) -%>
+    <% plant.errors.full_messages_for(:family).each do |message| %>
+      <p><%= message %></p>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :name %><br>
+    <%= form.text_field :name, class: 'form-control' %>
+    <% plant.errors.full_messages_for(:name).each do |message| %>
+      <p><%= message %></p>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :room_id %><br>
+    <%= form.select(:room_id, Room.all.collect {|a| [a.name, a.id]},
+    {}, { :class => 'form-select' }) -%>
+    <% plant&.errors&.full_messages_for(:rooms).each do |message| %>
+      <p><%= message %></p>
+    <% end %>
+  </div>
+
+  <div class="form-group form-check">
+    <%= form.check_box :fertilise, class: 'form-check-input' %>
+    <%= form.label :fertilise, "Fertilise plant with regular watering", class: 'form-check-label' %>
+    <% plant.errors.full_messages_for(:fertilise).each do |message| %>
+      <p><%= message %></p>
+    <% end %>
+  </div>
+
+  <div class="form-group form-check">
+    <%= form.check_box :fertilise_in_winter, class: 'form-check-input' %>
+    <%= form.label :fertilise_in_winter, "Fertilise plant during winter season", class: 'form-check-label' %>
+    <% plant.errors.full_messages_for(:fertilise_in_winter).each do |message| %>
+      <p><%= message %></p>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :health, {}, { class: 'form-label' } %><br>
+    <%= form.select :health, [['Thriving', 'thriving'], ['Good', 'good'], ['Poor', 'poor'], ['Dead', 'dead']],
+    {}, { :class => 'form-select' } %>
+    <% plant.errors.full_messages_for(:health).each do |message| %>
+      <p><%= message %></p>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= link_to plants_path, class: "btn btn-secondary mt-2 me-2" do %>
+      <%= icon("arrow-left") %> Back
+    <% end %>
+    <%= form.button :class => 'btn btn-primary mt-2' do %>
+      <%= icon("save") %> Save
+    <% end %>
+  </div>
+<% end %>
+
+<script>
+  const familySelect = document.getElementById('plant_family_id');
+  const plantName = document.getElementById('plant_name');
+  familySelect.addEventListener('change', (event) => {
+    if (plantName.value === '') {
+      plantName.value = familySelect.options[familySelect.selectedIndex].text;
+    }
+  });
+</script>

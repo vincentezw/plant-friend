@@ -1,0 +1,51 @@
+<section class="container-md col content my-4 shadow p-4">
+  <div class="pb-2 mt-2 mb-2 border-bottom border-plantfriend">
+    <h1>Tasks</h1>
+  </div>
+
+  <h5 class="my-4">Completed tasks</h5>
+  <% if @completed_tasks.empty? %>
+    No tasks completed today yet.
+  <% else %>
+    <ul class="list-group list-group-light">
+      <% @completed_tasks.each do |task| %>
+        <li class="list-group-item d-flex justify-content-end">
+          <span class='list-link'>
+            <% case task.task_type.serialize %>
+            <% when 'water' %>
+              <%= icon('droplet-fill') %>
+            <% when 'fertilise' %>
+              <%= icon('flower1') %>
+            <% when 'mist' %>
+              <%= icon('moisture') %>
+            <% else %>
+              <%= icon('bucket-fill') %>
+            <% end %>
+            <%= task.task_type.serialize.capitalize %> <%= task.plant.name %>
+          </span>
+          <%= link_to task_path(id: task.last_task), data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?"
+          }, class: 'btn btn-secondary' do %>
+            <%= icon("arrow-counterclockwise") %> Undo
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <h5 class="my-4">Tasks to do</h5>
+  <% if @grouped_tasks.empty? %>
+    There are no tasks pending for today.
+  <% else %>
+    <% @grouped_tasks.each do |group| %>
+      <% next if group[:tasks].empty? %>
+      <h6 class="my-4"><%= group[:name] %></h6>
+      <%= render "tasks", tasks: group[:tasks] %>
+    <% end %>
+  <% end %>
+
+  <%= link_to new_task_path, class: 'btn btn-primary mt-3' do %>
+    <%= icon("plus-lg") %> Add task
+  <% end %>
+</section class="container-md col content my-4">

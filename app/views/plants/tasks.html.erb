@@ -1,0 +1,36 @@
+<section class="container-sm content my-4 shadow p-4">
+  <div class="pb-2 mt-2 mb-2 border-bottom border-plantfriend">
+    <h2><%= @plant.name %></h2>
+  </div>
+  <div>
+    <% if @tasks.empty? %>
+      <p>No tasks performed for this plant yet.</p>
+    <% else %>
+      <ul class="list-group list-group-light mt-1">
+        <% @tasks.each do |t| %>
+          <li class="list-group-item d-flex">
+            <div>
+              <% case t.task_name.to_s %>
+              <% when 'water' %>
+                <%= icon('droplet-fill') %>
+              <% when 'fertilise' %>
+                <%= icon('flower1') %>
+              <% when 'mist' %>
+                <%= icon('moisture') %>
+              <% else %>
+                <%= icon('bucket-fill') %>
+              <% end %>
+            </div>
+            <div>
+              <div class="fw-bold"><%= t.task_name.capitalize %></div>
+              <%= t.created_at.to_formatted_s(:long) %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <div class="d-flex justify-content-center mt-2">
+    <%= will_paginate @tasks, previous_label: '&laquo; Previous', next_label: 'Next &raquo;' %>
+  </div>
+</section>

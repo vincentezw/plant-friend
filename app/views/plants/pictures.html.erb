@@ -1,0 +1,66 @@
+<section class="container-sm col content my-4 shadow p-4">
+  <div class="pb-2 mt-2 mb-2 border-bottom border-plantfriend">
+    <h2>Pictures of <%= @plant.name %></h2>
+  </div>
+  <% if @pictures.any? %>
+    <div id="slider" class="carousel slide border-plantfriend" data-ride="carousel" data-slider-plant="<%= @plant.id %>">
+      <div class="carousel-indicators">
+        <% @pictures.each_with_index do |p, index| %>
+          <button
+            type="button"
+            data-bs-target="#slider"
+            data-bs-slide-to="<%= index %>"
+            aria-label="Picture <%= index %>"
+            <% if index == 0 %>
+              class="active" aria-current="true"
+            <% end %>
+          >
+          </button>
+        <% end %>
+      </div>
+
+      <div class="carousel-inner">
+        <% @pictures.each_with_index do |p, index| %>
+          <div class="carousel-item<% if index == 0 %> active<% end %>">
+            <img class="d-block w-100" src="<%= p.image_url =%>" alt="<%= p.description =%>">
+          </div>
+        <% end %>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#slider" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#slider" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <div class='gallery-bar my-4'>
+      <% @pictures.each_with_index do |p, index| %>
+        <div data-index="<%= index %>" class="gallery-bar-item border-plantfriend<% if index == 0 %> thumbnail--active<% end%>">
+          <%= image_tag p.image_derivatives[:small].url %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center">
+      <p>No pictures yet. Add them from the plant screen.</p>
+      <%= image_tag("content-plant.png", size: "200x162", alt: "A content plant", class: 'my-5') %>
+      <p style='font-size: 0.6em;'>Image by <a href="https://www.vecteezy.com/members/divinetoons" target="_blank">divinetoons</a></p>
+    </div>
+  <% end %>
+  <div>
+    <%= link_to "Back to plant", @plant, class: "btn btn-secondary mt-2" %>
+  </div>
+
+  <script>
+    const thumbnails = document.querySelectorAll('.gallery-bar-item');
+    const slider = document.querySelector(`[data-slider-plant="<%= @plant.id %>"]`);
+    thumbnails.forEach(thumb => {
+      const target = slider.querySelector(`[data-bs-slide-to="${thumb.dataset.index}"]`);
+      thumb.addEventListener('click', () => {
+        target.click();
+      });
+    });
+  </script>
+</section

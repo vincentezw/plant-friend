@@ -1,0 +1,23 @@
+<section class="container-sm content my-4 shadow p-4">
+  <div class="pb-2 mt-2 mb-2 border-bottom border-plantfriend">
+    <h2><%= @picture.plant.name %> <small class="text-muted"><%= @picture.plant.family.name %></small></h2>
+  </div>
+  <div>
+    <%= image_tag @picture.image_derivatives[:large].url, class: 'mw-100' %>
+  </div>
+  <p class="h5 text-center mt-3">
+    <%= @picture.description %> <small class="text-muted"><%= @picture.created_at.strftime("%d/%m/%Y") %></small>
+  </p>
+  <div>
+    <%= link_to "Back", @picture.plant, class: "btn btn-secondary" %>
+    <% button_text = "See all #{@number_of_pictures} pictures" %>
+    <%= link_to "Delete", @picture, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+    <%= button_to button_text, {
+      controller: 'plants',
+      id: @picture.plant,
+      action: :pictures },
+      { class: "btn btn-primary my-3", method: :get}
+    %>
+  </div>
+</section>
+

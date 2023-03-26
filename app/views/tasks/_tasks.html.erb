@@ -1,0 +1,32 @@
+<ul class="list-group list-group-light">
+  <% tasks.each_with_index do |task, index| %>
+    <li class="list-group-item d-flex justify-content-end">
+      <span class='list-link'>
+        <% case task.task_type.serialize %>
+        <% when 'water' %>
+          <%= icon('droplet-fill') %>
+        <% when 'fertilise' %>
+          <%= icon('flower1') %>
+        <% when 'mist' %>
+          <%= icon('moisture') %>
+        <% else %>
+          <%= icon('bucket-fill') %>
+        <% end %>
+        <%= task.task_type.serialize.capitalize =%> <%= task.plant.name %>
+        <% unless task.due_since.nil? %>
+          <% day_word = task.due_since > 1 ? "days" : "day" %>
+          <small style="color: #80002a;">(<%= task.due_since %> <%= day_word %> late)</small>
+        <% end %>
+      </span>
+
+      <%= render "modal", task:, index: %>
+      <%= form_for @task do |form| %>
+        <%= form.hidden_field :task_name, value: task.task_type.serialize %>
+        <%= form.hidden_field :plant_id, value: task.plant.id %>
+        <%= form.button nil, class: "btn btn-primary" do %>
+          <%= icon("check-lg") %> Done
+        <% end %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

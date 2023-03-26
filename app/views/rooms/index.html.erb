@@ -1,0 +1,40 @@
+<section class="container-md col content my-4 shadow p-4">
+  <div class="pb-2 mt-2 mb-2 border-bottom border-plantfriend">
+    <h2>Rooms</h2>
+  </div>
+  <%  unless @rooms.any? %>
+    <div class="text-center">
+      <p>You have no rooms setup. Add one by clicking the button below.</p>
+      <%= image_tag("content-plant.png", size: "200x162", alt: "A content plant", class: 'my-5') %>
+      <p style='font-size: 0.6em;'>Image by <a href="https://www.vecteezy.com/members/divinetoons" target="_blank">divinetoons</a></p>
+    </div>
+  <% else %>
+    <ul class="list-group list-group-light">
+      <% @rooms.each do |room| %>
+        <li class="list-group-item d-flex justify-content-end">
+          <a class="list-link" href="<%= room_path(room) %>">
+            <div class="fw-bold">
+              <%= room.name %> <%= icon("box-arrow-right") %>
+            </div>
+            <%= room.plants.count %> plants
+          </a>
+          <%= link_to edit_room_path(room), class: 'btn btn-secondary me-1' do %>
+            <%= icon("pencil") %> Edit
+          <% end %>
+          <%= link_to room_path(room), data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?"
+          }, class: 'btn btn-secondary' do %>
+            <%= icon("trash2") %> Delete
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= link_to new_room_path, class: 'btn btn-primary mt-3' do %>
+    <%= icon("plus-lg") %> Add room
+  <% end %>
+  <div class="d-flex justify-content-center mt-2">
+    <%= will_paginate @plants, previous_label: '&laquo; Previous', next_label: 'Next &raquo;' %>
+  </div>
+</section>
