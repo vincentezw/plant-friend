@@ -18,9 +18,9 @@ Lots.
 - You name it. PRs welcome.
 
 ## Screenshots:
-![Task screen](screenshots/tasks.png)
+![Task screen](https://github.com/vincentezw/plant-friend/blob/main/screenshot/tasks.png)
 
-![Plant info screen](screenshots/plant.png)
+![Plant info screen](https://github.com/vincentezw/plant-friend/blob/main/screenshot/plant.png)
 
 Installation with docker:
 
