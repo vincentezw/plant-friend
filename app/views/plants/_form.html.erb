@@ -1,7 +1,7 @@
 <%= form_with model: plant do |form| %>
   <div class="form-group">
     <%= form.label :family_id %><br>
-    <%= form.select(:family_id, Family.all.collect {|a| [a.name, a.id]}, {}, { :class => 'form-select' }) -%>
+    <%= form.select(:family_id, Family.all.sort_by(&:name).collect {|a| [a.name, a.id]}, {}, { :class => 'form-select' }) -%>
     <% plant.errors.full_messages_for(:family).each do |message| %>
       <p><%= message %></p>
     <% end %>
