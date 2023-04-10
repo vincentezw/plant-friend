@@ -13,15 +13,19 @@
       <% @families.each do |family| %>
         <li class="list-group-item d-flex justify-content-end">
           <span class="list-link"><%= family.name %></span>
-          <%= link_to edit_family_path(family), class: 'btn btn-secondary me-1' do %>
-            <%= icon("pencil") %> Edit
-          <% end %>
-          <%= link_to family_path(family), data: {
-            turbo_method: :delete,
-            turbo_confirm: "Are you sure?"
-          }, class: 'btn btn-secondary' do %>
-            <%= icon("trash2") %> Delete
-          <% end %>
+          <span>
+            <%= link_to edit_family_path(family), class: 'btn btn-secondary me-1' do %>
+              <%= icon("pencil") %> Edit
+            <% end %>
+          </span>
+          <span>
+            <%= link_to family_path(family), data: {
+              turbo_method: :delete,
+              turbo_confirm: "Are you sure?"
+            }, class: 'btn btn-secondary' do %>
+              <%= icon("trash2") %> Delete
+            <% end %>
+          </span>
         </li>
       <% end %>
     </ul>
