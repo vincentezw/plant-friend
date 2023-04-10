@@ -1,0 +1,154 @@
+<script>
+  const importFamily = () => {
+    const apiKey = '<%= @api %>';
+    const elements = {
+      searchButton: document.getElementById('search'),
+      query: document.getElementById('query'),
+      families: document.getElementById('families'),
+      familyForm: {
+        name: document.getElementById('family_name'),
+        latinName: document.getElementById('family_latin_name'),
+        description: document.getElementById('family_description'),
+        watering: document.getElementById('family_watering_frequency'),
+        misting: document.getElementById('family_misting'),
+        cleaning: document.getElementById('family_cleaning'),
+        preferredRoom: document.getElementById('family_preferred_room'),
+        image: document.getElementById('family_image'),
+      }
+    }
+
+    const toggleElements = (elements, disabled) => {
+      elements.forEach((element) => {
+        element.disabled = disabled;
+        if (disabled) {
+          element.classList.add('disabled');
+        } else {
+          element.classList.remove('disabled');
+        }
+      });
+    }
+
+    const search = () => {
+      toggleElements([elements.query, elements.searchButton, elements.families], true);
+      elements.families.innerHTML = '';
+
+      const query = document.getElementById('query').value;
+      const url = `https://perenual.com/api/species-list?key=${apiKey}&q=${query}`;
+      fetch(url, {}).catch((error) => {
+        console.log(error);
+      }).then((response) => {
+        return response.json();
+      }).then((data) => {
+        const plants = data.data;
+
+        plants.forEach((specie) => {
+          const option = document.createElement('option');
+          option.value = specie.id;
+          const name = specie.common_name.charAt(0).toUpperCase() + specie.common_name.slice(1)
+          option.innerHTML = `${name} (${specie.scientific_name[0]})`;
+          elements.families.appendChild(option);
+        });
+
+        if (plants.length === 0) {
+          elements.families.disabled = true;
+          elements.families.classList.add('disabled');
+        } else {
+          elements.families.disabled = false;
+          elements.families.classList.remove('disabled');
+          const event = new Event('change');
+          elements.families.dispatchEvent(event);
+        }
+
+        toggleElements([elements.query, elements.searchButton], false);
+      });
+    };
+
+    const getPlantDetails = (id) => {
+      toggleElements(Object.values(elements.familyForm), true);
+
+      const url = `https://perenual.com/api/species/details/${id}?key=${apiKey}`;
+      fetch(url, {}).catch((error) => {
+        console.log(error);
+      }).then((response) => {
+        return response.json();
+      }).then((data) => {
+        elements.familyForm.name.value = data.common_name;
+        elements.familyForm.latinName.value = data.scientific_name[0];
+        const desc = data.description ? data.description.replace(/(\r\n|\n|\r)/gm, "") : "";
+        elements.familyForm.description.value = desc;
+        elements.familyForm.misting.checked = data.tropical;
+
+        switch(data.watering) {
+          case "Frequent":
+            elements.familyForm.watering.value = 10;
+            break;
+          case "Average":
+            elements.familyForm.watering.value = 20;
+            break;
+          case "Minimum":
+            elements.familyForm.watering.value = 35;
+            break;
+          default:
+            elements.familyForm.watering.value = 20;
+        }
+
+        switch(data.sunlight[0].toLowerCase()) {
+          case "sun":
+            elements.familyForm.preferredRoom.value = "fullsun";
+            break;
+          case "part shade":
+            elements.familyForm.preferredRoom.value = "partsun";
+            break;
+          case "full shade":
+            elements.familyForm.preferredRoom.value = "shade";
+            break;
+        }
+
+        if (data.default_image.small_url) {
+          elements.familyForm.image.src = data.default_image.small_url;
+          elements.familyForm.image.classList.add('active');
+        } else {
+          elements.familyForm.image.src = "<%= image_url('content-plant.png') %>";
+          elements.familyForm.image.classList.remove('active');
+        }
+        toggleElements(Object.values(elements.familyForm), false);
+      });
+    }
+
+    const init = () => {
+      elements.searchButton.addEventListener('click', search);
+      families.addEventListener('change', (event) => {
+        getPlantDetails(event.target.value);
+      });
+    };
+
+    init();
+  };
+
+  window.addEventListener('DOMContentLoaded', importFamily);
+</script>
+
+<section class="container-md col content my-4 shadow p-4">
+  <div class="pb-2 mt-2 mb-2 border-bottom border-plantfriend">
+    <h1>Import from Perenial</h1>
+  </div>
+
+  <div class="import-form">
+    <div class="form-group d-flex">
+      <input type="text" placeholder="Search for a plant" class="form-control" id="query" />
+      <button id="search" class="btn btn-primary">Search</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Family</label>
+      <select id="families" class="form-select disabled" disabled="true"></select>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <p>Preview:</p>
+    <img id="family_image" class="import-image border-plantfriend" />
+  </div>
+
+
+  <%= render "form", family: @family %>
+</section

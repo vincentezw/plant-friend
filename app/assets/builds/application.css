@@ -18799,7 +18799,7 @@ main {
 }
 
 .list-group-item > .btn {
-  height: 38px;
+  min-height: 38px;
 }
 
 form.button_to {
@@ -18873,11 +18873,11 @@ form.button_to {
   --bs-pagination-hover-border-color: rgb(115,115,115);
 }
 
-.plant-next-due {
+.plant-next-due, .import-form {
   background: #a1e048;
   border-radius: 5px;
   box-shadow: 0 0 1px 0px rgb(65, 65, 65);
-  background: linear-gradient(210deg, rgba(160, 200, 90, 0.53) 0%, rgba(94, 150, 60, 0.3) 100%);
+  background: linear-gradient(210deg, rgba(160, 200, 90, 0.52) 0%, rgba(94, 150, 60, 0.3) 100%);
   margin: 1em 0.3em;
   padding: 1em 0.5em;
 }
@@ -18895,6 +18895,16 @@ form.button_to {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+}
+
+.import-image {
+  border-radius: 5px;
+  padding: 0.4em;
+  max-width: 200px;
+  max-height: 200px;
+}
+.import-image.active {
+  border: 1px solid;
 }
 
 .gallery-bar-item {

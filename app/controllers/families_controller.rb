@@ -10,10 +10,15 @@ class FamiliesController < ApplicationController
     @family = Family.new
   end
 
+  def import
+    @family = Family.new
+    @api = ENV['PERENUAL_API_CODE']
+  end
+
   def create
     @family = Family.new(family_params)
     @family.save!
-    redirect_to @family
+    redirect_to 'index'
   rescue StandardError => e
     puts e
     render :new, status: :unprocessable_entity
