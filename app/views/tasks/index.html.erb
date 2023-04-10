@@ -21,7 +21,10 @@
             <% else %>
               <%= icon('bucket-fill') %>
             <% end %>
-            <%= task.task_type.serialize.capitalize %> <%= task.plant.name %>
+            <%= task.task_type.serialize.capitalize %>
+            <%= link_to task.plant do %>
+              <%= task.plant.name %> <%= icon('link-45deg') %>
+            <% end %>
           </span>
           <span>
             <%= link_to task_path(id: task.last_task), data: {
