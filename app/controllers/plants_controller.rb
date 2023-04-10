@@ -78,7 +78,7 @@ class PlantsController < ApplicationController
     @plant = Plant.find(params[:id])
     @plant.destroy
 
-    redirect_to root_path, status: :see_other
+    redirect_to '/plants', status: :see_other
   end
 
   private

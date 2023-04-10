@@ -3,7 +3,7 @@
 # Controller for rooms
 class FamiliesController < ApplicationController
   def index
-    @families = Family.all.order(:name).paginate(page: params[:page], per_page: 50)
+    @families = Family.all.order(:name).paginate(page: params[:page], per_page: 20)
   end
 
   def new

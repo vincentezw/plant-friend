@@ -111,7 +111,6 @@ class TasksController < ApplicationController
     grouped = []
 
     Task::TaskActionType.each_value do |task_type|
-      puts "Task type: #{task_type.serialize}"
       next if task_type.serialize.start_with?('skip')
 
       grouped.push(

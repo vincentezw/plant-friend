@@ -2,6 +2,7 @@
   const importFamily = () => {
     const apiKey = '<%= @api %>';
     const elements = {
+      errorDiv: document.getElementById('error'),
       searchButton: document.getElementById('search'),
       query: document.getElementById('query'),
       families: document.getElementById('families'),
@@ -17,6 +18,17 @@
       }
     }
 
+    const setLoader = (element) => {
+      element.innerHTML = '';
+      const loader = document.createElement('div');
+      loader.classList.add('loader');
+      for (let i = 0; i < 4; i++) {
+        const bar = document.createElement('div');
+        loader.appendChild(bar);
+      }
+      element.appendChild(loader);
+    }
+
     const toggleElements = (elements, disabled) => {
       elements.forEach((element) => {
         element.disabled = disabled;
@@ -30,12 +42,15 @@
 
     const search = () => {
       toggleElements([elements.query, elements.searchButton, elements.families], true);
+      setLoader(elements.searchButton);
       elements.families.innerHTML = '';
+      elements.errorDiv.innerHTML = '';
 
       const query = document.getElementById('query').value;
       const url = `https://perenual.com/api/species-list?key=${apiKey}&q=${query}`;
       fetch(url, {}).catch((error) => {
         console.log(error);
+        showError(error);
       }).then((response) => {
         return response.json();
       }).then((data) => {
@@ -52,6 +67,7 @@
         if (plants.length === 0) {
           elements.families.disabled = true;
           elements.families.classList.add('disabled');
+          showError('No results found');
         } else {
           elements.families.disabled = false;
           elements.families.classList.remove('disabled');
@@ -60,8 +76,16 @@
         }
 
         toggleElements([elements.query, elements.searchButton], false);
+        elements.searchButton.innerHTML = 'Search';
       });
     };
+
+    const showError = (error) => {
+      elements.errorDiv.innerHTML = '';
+      span = document.createElement('span');
+      span.textContent = error;
+      elements.errorDiv.appendChild(span);
+    }
 
     const getPlantDetails = (id) => {
       toggleElements(Object.values(elements.familyForm), true);
@@ -69,6 +93,7 @@
       const url = `https://perenual.com/api/species/details/${id}?key=${apiKey}`;
       fetch(url, {}).catch((error) => {
         console.log(error);
+        showError(error);
       }).then((response) => {
         return response.json();
       }).then((data) => {
@@ -130,9 +155,11 @@
 
 <section class="container-md col content my-4 shadow p-4">
   <div class="pb-2 mt-2 mb-2 border-bottom border-plantfriend">
-    <h1>Import from Perenial</h1>
+    <h1>Import from Perenual</h1>
   </div>
 
+  <p>Search for a plant on <a href="https://perenual.com" target="_blank">Perenual</a>. Select a family from the dropdown and
+  add it to Plant Friend.</p>
   <div class="import-form">
     <div class="form-group d-flex">
       <input type="text" placeholder="Search for a plant" class="form-control" id="query" />
@@ -143,7 +170,7 @@
       <select id="families" class="form-select disabled" disabled="true"></select>
     </div>
   </div>
-
+  <div id="error"></div>
   <div class="text-center">
     <p>Preview:</p>
     <img id="family_image" class="import-image border-plantfriend" />

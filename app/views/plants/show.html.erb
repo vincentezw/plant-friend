@@ -30,6 +30,7 @@
 
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 plant-next-due justify-content-between">
     <% @next_due.each do |n| %>
+      <% next if n[1].nil? %>
       <div class="col d-flex">
         <div>
           <% case n[0].to_s %>
@@ -99,8 +100,11 @@
       <%= link_to edit_plant_path(@plant), class: "btn btn-primary mt-3 me-2" do %>
         <%= icon('pencil') %> Edit
       <% end %>
-      <%= link_to plant_path(@plant), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger mt-3" do %>
-        <%= icon('trash') %> Delete
+      <%= link_to plant_path(@plant), data: {
+        turbo_method: :delete,
+        turbo_confirm: "Are you sure?"
+      }, class: 'btn btn-danger mt-3' do %>
+        <%= icon("trash2") %> Delete
       <% end %>
     </div>
   </div>

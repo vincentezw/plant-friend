@@ -41,7 +41,7 @@ class RoomsController < ApplicationController
   def destroy
     @room = Room.find(params[:id])
     @room.destroy
-    redirect_to root_path, status: :see_other
+    redirect_to '/rooms', status: :see_other
   end
 
   private

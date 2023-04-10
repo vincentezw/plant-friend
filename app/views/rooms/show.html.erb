@@ -2,14 +2,14 @@
   <div class="pb-2 mt-2 mb-2 border-bottom border-plantfriend">
     <h2><%= @room.name %></h2>
   </div>
-  <p>Plants added to this room.</p>
-  <% if @plants.nil? %>
+  <% if @plants.empty? %>
     <div class="text-center">
       <p>Add some plants to this room from the <a href="/plants">plants page</a>.</p>
       <%= image_tag("content-plant.png", size: "200x162", alt: "A content plant", class: 'my-5') %>
       <p style='font-size: 0.6em;'>Image by <a href="https://www.vecteezy.com/members/divinetoons" target="_blank">divinetoons</a></p>
     </div>
   <% else %>
+    <p>Plants added to this room.</p>
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4">
         <% @plants.each do |plant| %>
