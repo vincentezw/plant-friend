@@ -26,8 +26,13 @@
       <% end %>
     </ul>
   <% end %>
-  <%= link_to new_family_path, class: 'btn btn-primary mt-3' do %>
+  <%= link_to new_family_path, class: 'btn btn-primary mt-3 me-2' do %>
     <%= icon("plus-lg") %> Add family
+  <% end %>
+  <% if ENV['PERENUAL_API_CODE'].present? %>
+    <%= link_to "/families/import", class: 'btn btn-primary mt-3' do %>
+      <%= icon("box-arrow-down-left") %> Import family
+    <% end %>
   <% end %>
   <div class="d-flex justify-content-center mt-2">
     <%= will_paginate @plants, previous_label: '&laquo; Previous', next_label: 'Next &raquo;' %>

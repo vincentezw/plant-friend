@@ -1,11 +1,28 @@
 name,watering_frequency,latin_name,preferred_room,misting,cleaning
-Spider Plant,17,Chlorophytum comosum,partsun,TRUE,FALSE
-Spineless Yucca,20,Yucca gigantea,sun,FALSE,FALSE
-Asparagus Fern,7,Asparagus plumosus,partsun,FALSE,FALSE
+Asparagus fern,7,Asparagus plumosus,partsun,FALSE,FALSE
 Calamondin,10,Citrus x microcarpa,sun,FALSE,TRUE
-Snake Plant,25,Dracaena trifasciata,partsun,FALSE,FALSE
-Peace Lilly,14,Spathiphyllum wallisii,partsun,TRUE,TRUE
-Japanese Aralia,10,Aralia Japonica,partsun,TRUE,FALSE
-Cylinder Snake Plant,25,Dracaena angolensis,sun,TRUE,TRUE
+Compact dragon tree,22,Dracaena fragrans,partsun,TRUE,TRUE
+Cylinder snake plant,25,Dracaena angolensis,sun,TRUE,TRUE
+Donkey tail,25,Sedum burrito,partsun,FALSE,FALSE
+Dracaena,17,Dracaena arborea,partsun,TRUE,TRUE
+Easter cactus,20,Rhipsalidopsis graeseri,partsun,TRUE,FALSE
+Guzmania,18,Guzmania,partsun,TRUE,TRUE
+Hobbit finger jade,25,Crassula ovata,sun,FALSE,TRUE
+Jade plant,25,Crassula ovata,sun,FALSE,FALSE
+Japanese aralia,10,Aralia Japonica,partsun,TRUE,FALSE
+Monstera,16,Monstera deliciosa,partsun,TRUE,TRUE
+Oilcloth flower,14,Anthurium andraeanum,partsun,TRUE,FALSE
+Peace lilly,14,Spathiphyllum wallisii,partsun,TRUE,TRUE
+Red nerve plant,8,Fittonia albivenis,partsun,TRUE,FALSE
+Rex begonia,16,Begonia Rex,partsun,FALSE,TRUE
+Rubber plant,20,Ficus elastica,partsun,TRUE,TRUE
+Silver torch cactus,40,Cleistocactus strausii,sun,FALSE,FALSE
+Snake plant,25,Dracaena trifasciata,partsun,FALSE,FALSE
+Spider plant,17,Chlorophytum comosum,partsun,TRUE,FALSE
+Spineless yucca,20,Yucca gigantea,sun,FALSE,FALSE
 Tradescantia,10,Tradescantia fluminensis,partsun,TRUE,FALSE
-Red Nerve Plant,8,Fittonia albivenis,partsun,TRUE,FALSE
+Velvet calathea,18,Goeppertia rufibarba,partsun,TRUE,TRUE
+Weeping fig,15,Ficus benjamina,partsun,TRUE,FALSE
+ZZ plant,25,Zamioculcas zamiifolia,shade,FALSE,TRUE
+Sicklethorn,22,Asparagus falcatus,shade,TRUE,FALSE
+Painted feather,30,Vriesea psittacine,partsun,TRUE,TRUE

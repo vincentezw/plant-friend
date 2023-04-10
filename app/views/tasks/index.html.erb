@@ -23,12 +23,14 @@
             <% end %>
             <%= task.task_type.serialize.capitalize %> <%= task.plant.name %>
           </span>
-          <%= link_to task_path(id: task.last_task), data: {
-            turbo_method: :delete,
-            turbo_confirm: "Are you sure?"
-          }, class: 'btn btn-secondary' do %>
-            <%= icon("arrow-counterclockwise") %> Undo
-          <% end %>
+          <span>
+            <%= link_to task_path(id: task.last_task), data: {
+              turbo_method: :delete,
+              turbo_confirm: "Are you sure?"
+            }, class: 'btn btn-secondary' do %>
+              <%= icon("arrow-counterclockwise") %> Undo
+            <% end %>
+          </span>
         </li>
       <% end %>
     </ul>

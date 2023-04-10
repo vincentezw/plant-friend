@@ -7,23 +7,13 @@
 default: &default
   adapter: mysql2
   encoding: utf8
-  username: <%= ENV.fetch('MYSQL_USER') %>
-  password: <%= ENV.fetch('MYSQL_PASSWORD') %>
-  host: <%= ENV.fetch('MYSQL_HOST') %>
-  port: <%= ENV.fetch('MYSQL_PORT') %>
   timeout: 5000
 
 development:
-  adapter: mysql2
-  username: <%= ENV.fetch('MYSQL_USER') %>
-  password: <%= ENV.fetch('MYSQL_PASSWORD') %>
-  host: <%= ENV.fetch('MYSQL_HOST') %>
-  port: <%= ENV.fetch('MYSQL_PORT') %>
-  database: plant_friend
-  # adapter: sqlite3
-  # pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  # timeout: 5000
-  # database: db/development.sqlite3
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -37,3 +27,7 @@ test:
 production:
   <<: *default
   database: plant_friend
+  username: <%= ENV.fetch('MYSQL_USER') %>
+  password: <%= ENV.fetch('MYSQL_PASSWORD') %>
+  host: <%= ENV.fetch('MYSQL_HOST') %>
+  port: <%= ENV.fetch('MYSQL_PORT') %>
