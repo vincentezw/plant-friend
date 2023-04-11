@@ -4,7 +4,8 @@
     mariadb-dev \
     tzdata \
     nodejs \
-    yarn
+    yarn \
+    imagemagick
 
   WORKDIR /app
   COPY Gemfile* ./

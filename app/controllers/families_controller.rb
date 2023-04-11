@@ -41,7 +41,7 @@ class FamiliesController < ApplicationController
   def destroy
     @family = Family.find(params[:id])
     @family.destroy
-    redirect_to root_path, status: :see_other
+    redirect_to '/families', status: :see_other
   end
 
   private
