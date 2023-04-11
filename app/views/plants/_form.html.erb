@@ -60,7 +60,7 @@
 <% end %>
 
 <script>
-  const createForm = () => {
+  document.addEventListener('DOMContentLoaded', () => {
     const familySelect = document.getElementById('plant_family_id');
     const plantName = document.getElementById('plant_name');
     familySelect.addEventListener('change', (event) => {
@@ -68,7 +68,5 @@
         plantName.value = familySelect.options[familySelect.selectedIndex].text;
       }
     });
-  };
-
-  document.addEventListener('turbolinks:load', createForm);
+  }
 </script>
