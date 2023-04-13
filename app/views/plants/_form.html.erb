@@ -58,15 +58,3 @@
     <% end %>
   </div>
 <% end %>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const familySelect = document.getElementById('plant_family_id');
-    const plantName = document.getElementById('plant_name');
-    familySelect.addEventListener('change', (event) => {
-      if (plantName.value === '') {
-        plantName.value = familySelect.options[familySelect.selectedIndex].text;
-      }
-    });
-  });
-</script>

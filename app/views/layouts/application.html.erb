@@ -9,6 +9,20 @@
 
     <%= stylesheet_link_tag "application.bootstrap", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <script>
+      document.addEventListener('turbo:load', (event) => {
+        const url = new URL(event.detail.url);
+        if (url.pathname === '/plants/new' || /^\/plants\/\d+\/edit$/.test(pathname)) {
+          const familySelect = document.getElementById('plant_family_id');
+          const plantName = document.getElementById('plant_name');
+          familySelect.addEventListener('change', (event) => {
+            if (plantName.value === '') {
+              plantName.value = familySelect.options[familySelect.selectedIndex].text;
+            }
+          });
+        }
+      });
+    </script>
   </head>
 
   <body>
