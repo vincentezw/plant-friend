@@ -13,9 +13,7 @@
           <%= icon('bucket-fill') %>
         <% end %>
         <%= task.task_type.serialize.capitalize =%>
-        <%= link_to task.plant do %>
-          <%= task.plant.name %> <%= icon('link-45deg') %>
-        <% end %>
+        <%= link_to task.plant do %><%= task.plant.name %> <%= icon('link-45deg') %><% end %>
         <% unless task.due_since.nil? %>
           <% day_word = task.due_since > 1 ? "days" : "day" %>
           <small style="color: #80002a;">(<%= task.due_since %> <%= day_word %> late)</small>

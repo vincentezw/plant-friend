@@ -18812,11 +18812,14 @@ form.button_to {
 }
 
 .list-link {
+  align-items: center;
+  display: flex;
   line-height: 2em;
   text-decoration: none;
   color: black;
   border-radius: 1em;
   flex-grow: 1;
+  flex-direction: row;
 }
 
 #slider {
@@ -18975,5 +18978,11 @@ form.button_to {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  .snooze-caption {
+    display: none;
   }
 }
