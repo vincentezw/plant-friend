@@ -12,7 +12,7 @@
     <script>
       document.addEventListener('turbo:load', (event) => {
         const url = new URL(event.detail.url);
-        if (url.pathname === '/plants/new' || /^\/plants\/\d+\/edit$/.test(pathname)) {
+        if (url.pathname === '/plants/new' || /^\/plants\/\d+\/edit$/.test(url.pathname)) {
           const familySelect = document.getElementById('plant_family_id');
           const plantName = document.getElementById('plant_name');
           familySelect.addEventListener('change', (event) => {
