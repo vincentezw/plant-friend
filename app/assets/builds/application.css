@@ -18859,8 +18859,12 @@ form.button_to {
 }
 
 .bi {
-  margin: 0 0.5em;
+  margin: 0 0.4em;
   vertical-align: sub;
+}
+
+.task-list .bi {
+  margin: 0;
 }
 
 .btn > .bi {
@@ -18980,9 +18984,8 @@ form.button_to {
     transform: rotate(360deg);
   }
 }
-
 @media only screen and (max-width: 460px) {
-  .snooze-caption {
+  .btn-caption {
     display: none;
   }
 }

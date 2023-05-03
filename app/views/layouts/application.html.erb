@@ -12,6 +12,8 @@
     <script>
       document.addEventListener('turbo:load', (event) => {
         const url = new URL(event.detail.url);
+        const params = new URLSearchParams(url.search);
+
         if (url.pathname === '/plants/new' || /^\/plants\/\d+\/edit$/.test(url.pathname)) {
           const familySelect = document.getElementById('plant_family_id');
           const plantName = document.getElementById('plant_name');
@@ -20,6 +22,13 @@
               plantName.value = familySelect.options[familySelect.selectedIndex].text;
             }
           });
+        }
+
+        if (url.pathname === '/plants/new' && params.has('room_id')) {
+          const roomSelect = document.getElementById('plant_room_id');
+          if (Array.from(roomSelect.options).some(option => option.value === params.get('room_id'))) {
+            roomSelect.value = params.get('room_id');
+          }
         }
       });
     </script>

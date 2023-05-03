@@ -10,5 +10,6 @@ docker run -d \
  -e "MYSQL_DATABASE=plant_friend" \
  -e "MYSQL_HOST=127.0.0.1" \
  -e "MYSQL_PORT=3306" \
+  -v $PWD/uploads:/app/public/uploads \
  --restart unless-stopped \
 plantfriend

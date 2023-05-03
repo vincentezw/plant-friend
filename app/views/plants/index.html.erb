@@ -1,4 +1,4 @@
-<section class="container-md col content my-4 shadow p-4">
+<section class="container-md col content my-4 shadow p-3">
   <div class="pb-2 mt-2 mb-2 border-bottom border-plantfriend">
     <h1>Plants</h1>
   </div>
@@ -17,14 +17,14 @@
             <%= plant.name.capitalize %> (<%= plant.room.name %>)
             <%= icon("box-arrow-right") %>
             <%= link_to edit_plant_path(plant), class: 'btn btn-secondary me-1' do %>
-              <%= icon("pencil") %> Edit
+              <%= icon("pencil") %> <span class="btn-caption">Edit</span>
             <% end %>
           </a>
           <%= link_to plant_path(plant), data: {
             turbo_method: :delete,
             turbo_confirm: "Are you sure?"
           }, class: 'btn btn-secondary' do %>
-            <%= icon("trash2") %> Delete
+            <%= icon("trash2") %> <span class="btn-caption">Delete</span>
           <% end %>
         </li>
       <% end %>

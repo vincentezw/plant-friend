@@ -1,10 +1,10 @@
-<section class="container-md col content my-4 shadow p-4">
+<section class="container-md col content my-4 shadow p-3">
   <div class="pb-2 mt-2 mb-2 border-bottom border-plantfriend">
     <h2><%= @room.name %></h2>
   </div>
   <% if @plants.empty? %>
     <div class="text-center">
-      <p>Add some plants to this room from the <a href="/plants">plants page</a>.</p>
+      <p>No plants configured yet, let's <a href="<%= url_for(controller: 'plants', action: 'new', room_id: @room.id) %>">add some</a>.</p>
       <%= image_tag("content-plant.png", size: "200x162", alt: "A content plant", class: 'my-5') %>
       <p style='font-size: 0.6em;'>Image by <a href="https://www.vecteezy.com/members/divinetoons" target="_blank">divinetoons</a></p>
     </div>
@@ -36,5 +36,8 @@
   <%= link_to rooms_path, class: "btn btn-secondary mt-4" do %>
     <%= icon('arrow-left') %>
     Back to rooms
+  <% end %>
+  <%= link_to new_plant_path(room_id: @room.id), class: 'btn btn-primary mt-4 ms-2' do %>
+    <%= icon("plus-lg") %> Add plant
   <% end %>
 </section>

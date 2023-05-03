@@ -40,11 +40,14 @@ form.button_to {
 }
 
 .list-link {
+  align-items: center;
+  display: flex;
   line-height: 2em;
   text-decoration: none;
   color: black;
   border-radius: 1em;
   flex-grow: 1;
+  flex-direction: row;
 }
 
 #slider {
@@ -88,8 +91,12 @@ form.button_to {
 }
 
 .bi {
-  margin: 0 0.5em;
+  margin: 0 0.4em;
   vertical-align: sub;
+}
+
+.task-list .bi {
+  margin: 0;
 }
 
 .btn > .bi {
@@ -212,5 +219,11 @@ form.button_to {
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  .btn-caption {
+    display: none;
   }
 }

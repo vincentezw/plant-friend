@@ -1,7 +1,7 @@
 <ul class="list-group list-group-light">
   <% tasks.each_with_index do |task, index| %>
     <li class="list-group-item d-flex justify-content-end">
-      <span class='list-link'>
+      <span class='list-link task-list'>
         <% case task.task_type.serialize %>
         <% when 'water' %>
           <%= icon('droplet-fill') %>
@@ -12,12 +12,14 @@
         <% else %>
           <%= icon('bucket-fill') %>
         <% end %>
-        <%= task.task_type.serialize.capitalize =%>
-        <%= link_to task.plant do %><%= task.plant.name %> <%= icon('link-45deg') %><% end %>
-        <% unless task.due_since.nil? %>
-          <% day_word = task.due_since > 1 ? "days" : "day" %>
-          <small style="color: #80002a;">(<%= task.due_since %> <%= day_word %> late)</small>
-        <% end %>
+        <span>
+          <%= task.task_type.serialize.capitalize =%>&nbsp;
+          <%= link_to task.plant do %><%= task.plant.name %> <%= icon('link-45deg') %><% end %> (<%= task.plant.room.name %>)
+          <% unless task.due_since.nil? %>
+            <% day_word = task.due_since > 1 ? "days" : "day" %>
+            <small style="color: #80002a;">(<%= task.due_since %> <%= day_word %> late)</small>
+          <% end %>
+        </span>
       </span>
 
       <%= render "modal", task:, index: %>
@@ -25,7 +27,7 @@
         <%= form.hidden_field :task_name, value: task.task_type.serialize %>
         <%= form.hidden_field :plant_id, value: task.plant.id %>
         <%= form.button nil, class: "btn btn-primary" do %>
-          <%= icon("check-lg") %> Done
+          <%= icon("check-lg") %> <span class='btn-caption'>Done</span>
         <% end %>
       <% end %>
     </li>
