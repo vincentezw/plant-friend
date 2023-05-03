@@ -9,10 +9,17 @@
     <%= @picture.description %> <small class="text-muted"><%= @picture.created_at.strftime("%d/%m/%Y") %></small>
   </p>
   <div>
-    <%= link_to "Back", @picture.plant, class: "btn btn-secondary" %>
+    <%= link_to @picture.plant, class: "btn btn-secondary" do %>
+      <%= icon('arrow-left') %> Back
+    <% end %>
     <% button_text = "See all #{@number_of_pictures} pictures" %>
-    <%= link_to "Delete", @picture, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-    <%= button_to button_text, {
+    <%= link_to picture_path(@picture), data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?"
+          }, class: 'btn btn-danger' do %>
+      <%= icon("trash") %> Delete
+    <% end %>
+    <%= button_to "#{icon('images')} #{button_text}".html_safe, {
       controller: 'plants',
       id: @picture.plant,
       action: :pictures },

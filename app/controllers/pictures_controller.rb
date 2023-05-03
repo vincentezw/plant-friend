@@ -20,6 +20,12 @@ class PicturesController < ApplicationController
     render template: 'errors/show', status: :unprocessable_entity
   end
 
+  def destroy
+    @picture = Picture.find(params[:id])
+    @picture.destroy
+    redirect_to '/', status: :see_other
+  end
+
   private
 
   def picture_params

@@ -50,7 +50,9 @@
     </div>
   <% end %>
   <div>
-    <%= link_to "Back to plant", @plant, class: "btn btn-secondary mt-2" %>
+    <%= link_to @plant, class: "btn btn-secondary mt-2" do %>
+      <%= icon('arrow-left') %> Back to plant
+    <% end %>
   </div>
 
   <script>
